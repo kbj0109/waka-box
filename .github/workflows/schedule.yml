@@ -8,10 +8,13 @@ jobs:
   update-gist:
     runs-on: ubuntu-latest
     steps:
-      - name: Check WakaTime API (temporary)
-        run: |
-          code=$(curl -s -o /dev/null -w "%{http_code}" \
-            "https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key=$WAKATIME_API_KEY")
-          echo "WakaTime API status: $code"
+      - uses: actions/checkout@master
+      - name: Update gist
+        uses: matchai/waka-box@master
         env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GIST_ID: ${{ secrets.GIST_ID }}
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+
+
+
