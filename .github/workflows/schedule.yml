@@ -8,17 +8,13 @@ jobs:
   update-gist:
     runs-on: ubuntu-latest
     steps:
-      - name: Debug write to Gist (temporary)
-        run: |
-          echo '{"description":"debug","files":{"waka":{"content":"hello from action"}}}' > body.json
-          curl -s -X PATCH \
-            -H "Authorization: token $GH_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            https://api.github.com/gists/$GIST_ID \
-            -d @body.json
+      - uses: actions/checkout@master
+      - name: Update gist
+        uses: matchai/waka-box@master
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          GIST_ID:  ${{ secrets.GIST_ID }}
+          GIST_ID: ${{ secrets.GIST_ID }}
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
 
 
 
